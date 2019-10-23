@@ -1,0 +1,10 @@
+certifi==2019.9.11
+chardet==3.0.4
+ciscoconfparse==1.4.7
+colorama==0.4.1
+dnspython==1.16.0
+idna==2.8
+meraki==0.34
+passlib==1.7.1
+requests==2.22.0
+urllib3==1.25.6
