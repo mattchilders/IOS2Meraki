@@ -49,7 +49,7 @@ class Switch():
             port = interface_object.text.replace('interface ', '')
             self.interfaces[port] = SwitchPortConfig(port, interface_object)
 
-    def get_interfaces(self):
+    def list_interfaces(self):
         return list(self.interfaces.keys())
 
     def print_interfaces(self):
@@ -67,6 +67,9 @@ class Switch():
 
     def print_meraki_interface_config(self, interface):
         self.interfaces[interface].print_meraki_config()
+
+    def get_meraki_switchport_api_payload(self, interface):
+        return self.interfaces[interface].get_meraki_switchport_api_payload()
 
 
 class SwitchPortConfig():
