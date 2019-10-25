@@ -67,6 +67,26 @@ for switch in site.list_switches():
     action_batch.execute_batch()
 ```
 
+## Action Batch Handling
+Action batches are a way to group API calls into a single API call.  For example, when configuring a 48 port switch, it requires 48 (+ 4 uplinks) switchport API calls to configure each port.  An action batch can take all 52 of these API calls and batch them together, and submit one API call to do the same thing.  The ActionBatch() class in IOS2Meraki, enables you to use this functionality.  It uses the add_action() method to add individual API calls into a batch like below:
+
+```
+action_batch = IOS2Meraki.ActionBatch(api_key, org_id)
+action_batch.add_action(url, "update", payload)
+```
+https://developer.cisco.com/meraki/api/#/rest/guides/action-batches
+
+Action batches work differently than individual API calls, in that when you submit an action batch for execution, it doesn't immediately give you a response.  Instead it returns an ID that you can use to check the status of your action batch, to see when it has completed (or failed).  For this functionality IOS2Meraki also includes a ActionBatchGroup() class, which handles the details of executing and monitoring your Action Batches.  You need to add your Action Batch to the ActionBatchGroup Object and then execute the group.  Action Batches have limitations around the maximum number that can be run simultaneously (5), so the ActionBatchGroup object also handles splitting the batches for you and running them in groups.
+
+```
+action_batch = IOS2Meraki.ActionBatch(api_key, org_id)
+action_batch.add_action(url, "update", payload)
+
+action_batch_group = IOS2Meraki.ActionBatchGroup()
+action_batch_group.add_action_batch(name, action_batch)
+action_batch_group.execute()
+```
+
 ## Site Object Examples
 
 ```
