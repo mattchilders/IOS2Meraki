@@ -38,7 +38,7 @@ class Site():
 
 class Switch():
     def __init__(self, name, config_file):
-        self.name = name.lower()
+        self.name = name
         self.config_file = config_file
         self.interfaces = {}
         self.parse_config()
@@ -390,6 +390,45 @@ class ActionBatch():
         print('Response: ' + response.text)
 
 
+class ActionBatchGroup():
+    def __init__(self):
+        self.action_batch_group = []
+
+    def add_action_batch(self, name, action_batch):
+        self.action_batch_group.append({'name': name, 'action_batch': action_batch})
+
+    def execute(self, max_concurrent_executions=5):
+        if max_concurrent_executions > 5:
+            print('Unable to execute more than 5 action batches at once')
+        # Group into max_concurrent_executions groups
+        ab_groups = [self.action_batch_group[i:i + max_concurrent_executions] for i in range(0, len(self.action_batch_group), max_concurrent_executions)]
+        for current_ab_set in ab_groups:
+            name_list = [x['name'] for x in current_ab_set]
+            name_list.sort()
+            for ab in current_ab_set:
+                print('Executing Action Batch for ' + ab['name'])
+                ab['action_batch'].execute_batch()
+            complete = False
+            completed_list = []
+            print('Waiting for action batches to complete (this could take a few minutes)...')
+            while (not complete):
+                time.sleep(15)
+                for ab in current_ab_set:
+                    if ab['name'] not in completed_list:
+                        if ab['action_batch'].completed:
+                            print(ab['name'] + ' completed successfully')
+                            completed_list.append(ab['name'])
+                        elif ab['action_batch'].failed:
+                            print(ab['name'] + ' completed with failures')
+                            print(ab['action_batch'].errors)
+                            completed_list.append(ab['name'])
+                        else:
+                            ab['action_batch'].check_status()
+                completed_list.sort()
+                if completed_list == name_list:
+                    complete = True
+
+
 def get_network(api_key, org_id, network_name):
     networks = meraki.getnetworklist(api_key, org_id, suppressprint=True)
     for network in networks:
@@ -412,7 +451,7 @@ def add_device_to_network(api_key, network_id, serial):
     }
     response = requests.post(posturl, data=json.dumps(postdata), headers=headers)
     if response.status_code == 200:
-        print('Device Successfully Added')
+        print('Device ' + serial + ' Successfully Added')
         return response
     else:
         return response
