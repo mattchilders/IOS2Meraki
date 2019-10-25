@@ -17,7 +17,9 @@ git clone https://github.com/mattchilders/IOS2Meraki.git
 
 2. Install the Python dependencies (create a virtualenv if you'd like.)
 ```
-python3 -m venv IOS2Meraki/
+python3 -m venv IOS2Meraki
+cd IOS2Meraki
+source bin/activate
 pip install -r requirements.txt
 ```
 
