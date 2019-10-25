@@ -9,6 +9,35 @@ This library also provides an interface for the Mearki Action Batch API, which a
 ## Youtube Demo of IOS2Meraki Library
 https://www.youtube.com/watch?v=6YNBlKm8erA
 
+You can run the demo yourself with the following steps:
+1. Clone the github repo:
+```
+git clone https://github.com/mattchilders/IOS2Meraki.git
+```
+
+2. Install the Python dependencies (create a virtualenv if you'd like.)
+```
+python3 -m venv IOS2Meraki/
+pip install -r requirements.txt
+```
+
+3. Rename the api_config_example.json to api_config.json and edit to include your API key and org id.
+
+4. Modify meraki_demo.py to include serial numbers of your own switches.  You can use fewer than four switches, just remove the additional switches from the switch mapping.  Also, make sure these switches are claimed into your org's inventory.
+```
+switch_mapping = {'Switch1': 'XXXX-XXXX-XXXX', 'Switch2': 'XXXX-XXXX-XXXX', 'Switch3': 'XXXX-XXXX-XXXX', 'Switch4': 'XXXX-XXXX-XXXX'}
+```
+
+5. Modify MERAKI_NETWORK variable in meraki_demo.py to the name of the network you want to create the switches in.
+
+```
+MERAKI_NETWORK = 'Site1'
+```
+
+6. Run the meraki_demo.py script
+```
+python meraki_demo.py
+```
 
 ## How it works
 Step 1. Create a site
