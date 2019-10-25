@@ -48,9 +48,13 @@ for switch in site.list_switches():
         # If you are working with IOS stacks... here is where you would need additional
         # code to handle splitting the configs and making additional switches
         
+        # Get just the port num (drop everything before the last '/')
+        # GigabitEthernet1/0/10 becomes 10
+        meraki_port_num = name[name.rfind('/') + 1:]
+
         # Get the Meraki switchport Config and add it to the action batch
         payload = port.get_meraki_switchport_api_payload()
-        action_batch.add_action("/devices/" + details['serial'] + "/switchPorts/" + str(meraki_port_num), "update", payload)
+        action_batch.add_action("/devices/" + switch_mapping[switch] + "/switchPorts/" + str(meraki_port_num), "update", payload)
         
         # Alternatively, you could get the api payload and just call a switchport config
         # instead of using action batches here.
