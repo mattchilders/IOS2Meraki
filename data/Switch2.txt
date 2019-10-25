@@ -1,0 +1,490 @@
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Switch2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+!
+!
+!
+!
+ip device tracking
+vtp mode transparent
+!
+mls qos srr-queue input threshold 1 80 90
+mls qos srr-queue input priority-queue 2 bandwidth 30
+mls qos srr-queue input dscp-map queue 1 threshold 2 24
+mls qos srr-queue input dscp-map queue 1 threshold 3 48 56
+mls qos srr-queue input dscp-map queue 2 threshold 3 32 40 46
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+!
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 4
+ name VLAN4
+!
+vlan 5
+ name VLAN5
+!
+vlan 10 
+!
+vlan 20
+ name VLAN20
+!
+vlan 22,25-26,30,35,39-45,50,60-61,70 
+!
+vlan 99
+ name VLAN99
+!
+vlan 100 
+!         
+vlan 101
+ name VLAN101
+!
+vlan 133
+ name VLAN133
+!
+vlan 150
+ name VLAN150
+!
+vlan 160,170 
+!
+vlan 172
+ name 172.19.0.0/24
+!
+vlan 173
+ name 172.19.1.0/24
+!
+vlan 250
+ name VLAN250
+!
+vlan 251
+ name VLAN251
+!
+vlan 299,399 
+!
+vlan 500
+ name VLAN500
+!
+vlan 521-525,600,705,718,790,800 
+!
+vlan 802
+ name VLAN802
+!
+vlan 900-989 
+!
+vlan 990
+ name VLAN990
+!
+vlan 991
+ name VLAN991
+!
+vlan 999
+ name VLAN999
+!
+vlan 1000 
+!
+! 
+!         
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ no ip route-cache
+!
+interface GigabitEthernet1/0/1
+ description Clients_10
+ switchport access vlan 10
+ switchport mode access
+ switchport voice vlan 50
+ power inline never
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/2
+ description Clients_10
+ switchport access vlan 10
+ switchport mode access
+ switchport voice vlan 50
+ power inline never
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/3
+ description Clients_20
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 50
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/4
+ description Clients_20
+ switchport access vlan 20
+ switchport mode access
+ switchport voice vlan 50
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/5
+ description Clients_30
+ switchport access vlan 30
+ switchport mode access
+ switchport voice vlan 50
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/6
+ description Clients_30
+ switchport access vlan 30
+ switchport mode access
+ switchport voice vlan 50
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/7
+ description Clients_40
+ switchport access vlan 40
+ switchport mode access
+ switchport voice vlan 50
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/8
+ description Clients_40
+ switchport access vlan 40
+ switchport mode access
+ switchport voice vlan 50
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/9
+ description Phones
+ switchport access vlan 50
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/10
+ description Phones
+ switchport access vlan 50
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/11
+ description Phones
+ switchport access vlan 50
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/12
+ description Phones
+ switchport access vlan 50
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/13
+ description Servers
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/14
+ description Servers
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/15
+ description Servers
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!         
+interface GigabitEthernet1/0/16
+ description Servers
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/17
+ description Servers
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/18
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/19
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/20
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/21
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/22
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/23
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/24
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/25
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/26
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/27
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/28
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/29
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/30
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/31
+ description Access_Points
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 10,20,30
+ switchport trunk native vlan 20
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/32
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/33
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/34
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/35
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/36
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/37
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/38
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/39
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ !
+interface GigabitEthernet1/0/40
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ !
+interface GigabitEthernet1/0/41
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/42
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ !
+interface GigabitEthernet1/0/43
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ !
+interface GigabitEthernet1/0/44
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ !
+interface GigabitEthernet1/0/45
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ !
+interface GigabitEthernet1/0/46
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/47
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/48
+ description Default
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet1/0/49
+ description Uplink1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ udld aggressive
+!
+interface GigabitEthernet1/0/50
+ description Uplink1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ udld aggressive
+!
+interface GigabitEthernet1/0/51
+!
+interface GigabitEthernet1/0/52
+!
+interface Vlan1
+ no ip address
+!
+!
+!
+!
+line con 0
+line vty 0 4
+line vty 5 15
+!
+end
