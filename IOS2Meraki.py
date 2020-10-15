@@ -132,6 +132,17 @@ class SwitchPortConfig():
             return 'access'
         if access:
             return 'access'
+        if trunk:
+            return 'trunk'
+        if not access and not trunk:
+            access = config.re_search_children(r"^ switchport access vlan")
+            trunk = config.re_search_children(r"^ switchport trunk allowed vlan")
+            if access and not trunk:
+                return 'access'
+            if trunk and not access:
+                return 'trunk'
+            if not access and not trunk:
+                return 'trunk'
         return 'trunk'
 
     def parse_poe_enabled(self, config):
